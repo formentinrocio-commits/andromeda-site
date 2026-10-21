@@ -25,40 +25,31 @@ const experience = [
   ['2021 — 22', 'GM2', 'UX/UI Designer'],
 ];
 ---
-<Base section="01 / ORIGIN">
-  <!-- 01 HERO -->
-  <section class="hero wrap" aria-label="Introduction">
-    <div class="center">
-      <Symbols class="reveal" width={131} />
-      <div class="lockup">
-        <Wordmark class="big reveal" width={399} strokeWidth={0.4} />
-        <ul class="meta reveal" style="--d:200ms">
-          <li>"Design practice"</li>
-          <li>Rocío_Formentin</li>
-          <li class="light">Brand &amp; product design</li>
-          <li class="light">Open to work — remote</li>
-          <li class="light wide">©2026</li>
-        </ul>
-        <img class="dots reveal" style="--d:300ms" src="/brand/dots.svg" alt="" width="41" height="5" />
-        <a class="go reveal" style="--d:360ms" href="#work" aria-label="Explore selected work"><svg width="42" height="42" viewBox="0 0 44 44" fill="none"><path d="M0.708061 1H42.7067V43M42.7067 1L0.707085 42.9987" stroke="currentColor" stroke-width="2"/></svg></a>
-      </div>
+<Base crumbs={[{ label: "01 / Origin" }]}>
+  <!-- 01 HERO — follows Figma frame "V3/ Hero" (2262:293) -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hgroup">
+      <Symbols class="g-sym" width={131} />
+      <Wordmark class="g-word" width={399} strokeWidth={0.4} />
+      <p class="g-t g1">“creative lab”</p>
+      <p class="g-t g2">BORN_FROM_IMAGINATION</p>
+      <p class="g-t g3">/PROCESS/V02</p>
+      <p class="g-t g4">©2026</p>
+      <img class="g-dots" src="/brand/dots.svg" alt="" width="41" height="5" />
+      <a class="g-arrow" href="#work" aria-label="Explore selected work"><svg width="42" height="42" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M0.708061 1H42.7067V43M42.7067 1L0.707085 42.9987" stroke="currentColor" stroke-width="2"/></svg></a>
     </div>
 
-    <div class="grid bottom">
-      <div class="left">
-        <p class="lead reveal">Andromeda is the design practice of Rocío Formentin. It gathers years of work across branding, digital products and interactive experiences into one way of thinking: identities, interfaces and the systems that hold them together.</p>
-        <p class="fields mono reveal" style="--d:120ms"><span class="orbits" aria-hidden="true"><i></i><i></i></span>Identity / Product / Interaction</p>
-      </div>
-      <div class="right">
-        <p class="mono muted reveal">Practice / 2026</p>
-        <h1 class="prop reveal" style="--d:100ms">Imagination becomes identity, interface and experience.</h1>
-      </div>
-    </div>
-    <hr class="rule draw" />
-    <div class="byline mono">
-      <span class="muted">A design practice and portfolio by Rocío Formentin.</span>
-      <a class="ul strong" href="#work">Explore selected work ↘</a>
-    </div>
+    <p class="journey">A multidisciplinary practice shaped through an unconventional journey of study, work and creative exploration.</p>
+    <p class="fields mono"><span class="orbits" aria-hidden="true"><i></i><i></i></span>Identity / Systems / Technology</p>
+
+    <p class="prop-label mono">Practice / 2026</p>
+    <h1 class="proposition">Imagination becomes identity,<br />interface and experience.</h1>
+
+    <hr class="rule foot-rule" />
+    <p class="byline mono">A creative practice and portfolio by Rocío Formentin.</p>
+    <a class="cta mono ul" href="#work">Explore selected work&nbsp;&nbsp;↘</a>
+    <p class="coord mono">ARG / UTC−03</p>
+    <p class="progress mono">01 ————— 08</p>
   </section>
 
   <!-- 02 INDEX -->
@@ -188,30 +179,47 @@ const experience = [
 </script>
 
 <style>
-  /* HERO */
-  .hero { min-height: calc(100svh - 150px); display: flex; flex-direction: column; }
-  .center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0 64px; gap: 32px; }
-  .center :global(.symbols) { color: var(--paper); margin-left: 16%; }
-  .lockup { position: relative; display: grid; grid-template-columns: auto auto; align-items: start; }
-  .lockup :global(.big) { color: var(--bone); width: clamp(240px, 28vw, 399px); height: auto; margin-top: 28px; margin-right: -64px; opacity: .9; }
-  .meta { list-style: none; margin: 0; padding: 0; font-size: 20px; letter-spacing: .05em; text-transform: uppercase; color: var(--bone); line-height: 1.5; font-weight: 400; }
-  .meta .light { font-weight: 300; }
-  .meta .wide { letter-spacing: .26em; }
-  .dots { grid-column: 2; margin-top: 14px; }
-  .go { grid-column: 2; margin-top: 14px; color: var(--bone); width: 42px; transition: transform .5s var(--ease-out), color .3s; }
-  .go:hover { transform: translate(3px, 3px); color: var(--accent); }
-  .bottom { align-items: end; padding-bottom: 48px; }
-  .left { grid-column: 1 / span 4; }
-  .left .lead { margin: 0 0 40px; }
-  .right { grid-column: 9 / span 4; }
-  .right h1 { margin: 12px 0 0; color: var(--bone); }
-  .fields { display: flex; align-items: center; gap: 22px; color: var(--paper); margin: 0; }
-  .orbits { position: relative; width: 31px; height: 20px; }
-  .orbits i { position: absolute; top: 0; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--bone); opacity: .75; }
-  .orbits i:last-child { left: 10.4px; animation: orbit 6s var(--ease) infinite alternate; }
-  @keyframes orbit { from { left: 10.4px; } to { left: 4px; } }
-  .byline { display: flex; justify-content: space-between; padding: 26px 0 0; gap: 16px; }
-  .strong { color: var(--fg-strong); }
+  /* HERO — absolute layout mirroring the 1440×1024 Figma frame.
+     Top values are measured from the header rule (y=103); bottom values from the frame bottom (32px padding). */
+  .hero { position: relative; max-width: var(--maxw); margin: 0 auto; height: max(calc(100svh - 103px), 600px); color: var(--bone); }
+  .hero p, .hero h1 { margin: 0; }
+  .hgroup { position: absolute; left: calc(50% - 272px); top: max(40px, calc((100% - 666px) * .624)); width: 544px; height: 311px; }
+  .hgroup :global(.g-sym) { position: absolute; left: 264px; top: 0; color: var(--paper); }
+  .hgroup :global(.g-word) { position: absolute; left: 0; top: 82px; width: 399px; height: 59px; color: var(--bone); }
+  .g-t { position: absolute; font-family: var(--sans); font-size: 20px; line-height: 24px; letter-spacing: .05em; text-transform: uppercase; color: var(--bone); white-space: nowrap; }
+  .g1 { left: 255px; top: 128px; font-weight: 400; }
+  .g2 { left: 261.7px; top: 155px; font-weight: 400; }
+  .g3 { left: 261px; top: 185px; font-weight: 300; }
+  .g4 { left: 261px; top: 215px; font-weight: 300; letter-spacing: .26em; }
+  .g-dots { position: absolute; left: 262px; top: 249px; }
+  .g-arrow { position: absolute; left: 261px; top: 269px; width: 42px; height: 42px; color: var(--bone); transition: transform .5s var(--ease-out), color .3s; }
+  .g-arrow:hover { transform: translate(3px, 3px); color: var(--accent); }
+
+  .journey { position: absolute; left: calc(var(--margin) + 1px); top: calc(100% - 355px); width: 420px; font-size: 22px; line-height: 1.38; font-weight: 300; color: var(--bone); }
+  .fields { position: absolute; left: var(--margin); top: calc(100% - 217px); display: flex; align-items: center; gap: 31px; color: var(--paper); letter-spacing: .012em; line-height: 20px; }
+  .orbits { position: relative; width: 30.4px; height: 20px; }
+  .orbits i { position: absolute; top: 0; left: 0; width: 20px; height: 20px; border-radius: 50%; border: 1px solid rgba(221, 218, 218, .75); }
+  .orbits i:last-child { left: 10.4px; }
+  .prop-label { position: absolute; left: min(calc(66.67% - 5px), calc(100% - var(--margin) - 417px)); top: calc(100% - 355px); color: var(--stone); line-height: 20px; }
+  .proposition { position: absolute; left: min(calc(66.67% - 5px), calc(100% - var(--margin) - 417px)); top: calc(100% - 327px); width: 417px; font-size: 38px; line-height: 1.16; letter-spacing: -.01em; font-weight: 300; color: var(--bone); }
+  .foot-rule { position: absolute; left: var(--margin); right: var(--margin); top: calc(100% - 142px); }
+  .byline { position: absolute; left: var(--margin); top: calc(100% - 114px); color: var(--stone); letter-spacing: .005em; line-height: 20px; }
+  .cta { position: absolute; right: var(--margin); top: calc(100% - 114px); font-size: 12px; letter-spacing: .012em; color: var(--paper); line-height: 20px; }
+  .coord { position: absolute; left: var(--margin); top: calc(100% - 52px); font-size: 10px; letter-spacing: .015em; color: var(--stone); line-height: 20px; }
+  .progress { position: absolute; right: var(--margin); top: calc(100% - 52px); font-size: 10px; letter-spacing: .01em; color: var(--stone); line-height: 20px; }
+
+  @media (max-width: 1100px) and (min-width: 861px) {
+    .journey { width: 360px; font-size: 20px; }
+  }
+  /* short viewports: the centre group scales so the bottom rows stay inside the first screen */
+  @media (min-width: 861px) and (max-height: 900px) {
+    .hgroup { transform: scale(.82); transform-origin: 50% 0; top: max(24px, calc((100% - 666px) * .5)); }
+    .journey { font-size: 20px; }
+    .proposition { font-size: 34px; }
+  }
+  @media (min-width: 861px) and (max-height: 760px) {
+    .hgroup { transform: scale(.68); top: 20px; }
+  }
 
   /* INDEX */
   .index { padding: 160px 0 120px; }
@@ -265,15 +273,18 @@ const experience = [
   .cv { display: inline-block; margin-top: 32px; }
 
   @media (max-width: 860px) {
-    .hero { min-height: auto; }
-    .center :global(.symbols) { margin-left: 0; }
-    .lockup { grid-template-columns: 1fr; justify-items: start; }
-    .lockup :global(.big) { margin-right: 0; width: 100%; }
-    .meta { font-size: 15px; margin-top: 12px; }
-    .dots, .go { grid-column: 1; }
-    .left, .right { grid-column: 1 / -1; }
-    .right { margin-top: 48px; }
-    .byline { flex-direction: column; }
+    .hero { height: auto; padding: 56px var(--margin) 32px; display: flex; flex-direction: column; gap: 0; }
+    .hero > * { position: static !important; width: auto !important; }
+    .hgroup { position: relative !important; left: auto !important; top: auto !important; width: 544px !important; height: 311px; flex: none; transform: scale(.6); transform-origin: left top; margin: 8px 0 calc(-311px * .4 + 32px) calc(50% - 163px); }
+    .journey { font-size: 20px; margin-top: 24px !important; }
+    .fields { margin-top: 28px !important; }
+    .prop-label { margin-top: 56px !important; }
+    .proposition { font-size: 30px; margin-top: 8px !important; }
+    .foot-rule { margin-top: 48px !important; }
+    .byline { margin-top: 20px !important; }
+    .cta { margin-top: 12px !important; }
+    .coord { margin-top: 36px !important; }
+    .progress { display: none; }
     .index { padding: 96px 0 72px; }
     .preview { display: none; }
     .glabel, .list, .nda-txt { grid-column: 1 / -1; }

@@ -10,7 +10,7 @@ const { p } = Astro.props;
 const next = nextOf(p);
 const n = (i) => String(i).padStart(2, '0');
 ---
-<Base title={`${p.title} — ${p.thesis} · Andromeda`} description={p.intro} theme="light" section={`Work / ${n(p.order)}`}>
+<Base title={`${p.title} — ${p.thesis} · Andromeda`} description={p.intro} theme="light" crumbs={[{ label: '01 / Origin', href: '/' }, { label: '02 / Work', href: '/#work' }, { label: p.title }]}>
   <article class="case">
     <header class="wrap grid head">
       <div class="col-a">

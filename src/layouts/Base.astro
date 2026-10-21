@@ -12,7 +12,7 @@ const {
   title = 'Andromeda — Design practice of Rocío Formentin',
   description = 'Andromeda is the design practice of Rocío Formentin: brand identity, digital products and interactive experiences.',
   theme = 'dark',
-  section = '01 / ORIGIN',
+  crumbs,
 } = Astro.props;
 ---
 <!doctype html>
@@ -32,7 +32,7 @@ const {
   <div class="colgrid" aria-hidden="true">
     <div class="wrap"><div class="grid">{Array.from({ length: 12 }, (_, i) => <span style={`--i:${i}`}></span>)}</div></div>
   </div>
-  <Header section={section} />
+  <Header crumbs={crumbs} />
   <main id="main"><slot /></main>
   <Footer />
 

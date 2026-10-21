@@ -10,7 +10,7 @@ const { p } = Astro.props;
 const next = nextOf(p);
 const tag = p.origin === 'Collab' || p.origin === 'Client' ? 'Collab' : 'Lab';
 ---
-<Base title={`${p.title} · Andromeda`} description={p.context} theme="light" section={`Co·labs / ${p.title}`}>
+<Base title={`${p.title} · Andromeda`} description={p.context} theme="light" crumbs={[{ label: '01 / Origin', href: '/' }, { label: '02 / Co·labs', href: '/#work' }, { label: p.title }]}>
   <article class="colab">
     <header class="wrap grid head">
       <div class="a">
