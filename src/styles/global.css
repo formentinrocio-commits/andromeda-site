@@ -71,9 +71,9 @@ a { color: inherit; text-decoration: none; }
 .colgrid { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
 .colgrid .wrap { height: 100%; }
 .colgrid .grid { height: 100%; }
-.colgrid span { background: currentColor; opacity: .022; transform-origin: top; animation: col-in 1.6s var(--ease-out) both; }
+.colgrid span { background: currentColor; opacity: .016; transform-origin: top; animation: col-in 1.6s var(--ease-out) both; }
 .colgrid span:nth-child(n) { animation-delay: calc(var(--i) * 60ms); }
-.theme-light .colgrid span { opacity: .014; }
+.theme-light .colgrid span { opacity: .012; }
 body.show-grid .colgrid span { opacity: .1; }
 @keyframes col-in { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 main, header.site, footer.site { position: relative; z-index: 1; }
