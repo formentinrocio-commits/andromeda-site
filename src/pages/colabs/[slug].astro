@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import Media from '../../components/Media.astro';
+import { colabs, hrefOf, nextOf } from '../../data/projects.js';
+
+export function getStaticPaths() {
+  return colabs.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const next = nextOf(p);
+const tag = p.origin === 'Collab' || p.origin === 'Client' ? 'Collab' : 'Lab';
+---
+<Base title={`${p.title} · Andromeda`} description={p.context} theme="light" section={`Co·labs / ${p.title}`}>
+  <article class="colab">
+    <header class="wrap grid head">
+      <div class="a">
+        <p class="mono muted">{tag} · {p.area} · {p.years}</p>
+        <h1 class="display" transition:name={`t-${p.slug}`}>{p.title}</h1>
+      </div>
+      <div class="b">
+        <p class="mono muted">{p.line} — {p.origin}</p>
+        <p class="lead reveal">{p.context}</p>
+      </div>
+    </header>
+    <div class="wrap gallery">
+      {p.gallery.map((m) => <div class={`g ${m.span === 'half' ? 'half' : 'full'} reveal`}><Media item={m} /></div>)}
+    </div>
+    <nav class="wrap next">
+      <hr class="rule draw" />
+      <a href={hrefOf(next)} class="nx"><span class="mono muted">Next →</span><span class="display">{next.title}</span></a>
+      <a class="mono-nav ul" href="/#work">Back to work</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .colab { padding-top: 40px; }
+  .head { row-gap: 32px; padding-bottom: 96px; align-items: end; }
+  .a { grid-column: 1 / span 6; }
+  .a h1 { margin: 16px 0 0; }
+  .b { grid-column: 8 / span 5; }
+  .b .lead { margin: 16px 0 0; }
+  .gallery { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--gutter); padding-bottom: 140px; }
+  .g.full { grid-column: 1 / -1; }
+  .next { padding-bottom: 140px; }
+  .nx { display: grid; gap: 8px; padding: 48px 0 32px; transition: color .3s; }
+  .nx:hover { color: var(--accent); }
+  @media (max-width: 860px) { .a, .b { grid-column: 1 / -1; } .gallery { grid-template-columns: minmax(0,1fr); } }
+</style>

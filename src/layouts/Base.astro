@@ -1,0 +1,67 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource/42dot-sans/300.css';
+import '@fontsource/42dot-sans/400.css';
+import '@fontsource/42dot-sans/500.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const {
+  title = 'Andromeda — Design practice of Rocío Formentin',
+  description = 'Andromeda is the design practice of Rocío Formentin: brand identity, digital products and interactive experiences.',
+  theme = 'dark',
+  section = '01 / ORIGIN',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta name="theme-color" content="#131212" />
+  <link rel="icon" href="/brand/star.svg" type="image/svg+xml" />
+  <ClientRouter />
+</head>
+<body class={theme === 'light' ? 'theme-light' : ''} data-base-theme={theme}>
+  <div class="colgrid" aria-hidden="true">
+    <div class="wrap"><div class="grid">{Array.from({ length: 12 }, (_, i) => <span style={`--i:${i}`}></span>)}</div></div>
+  </div>
+  <Header section={section} />
+  <main id="main"><slot /></main>
+  <Footer />
+
+  <script>
+    function init() {
+      // reveal on scroll
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      document.querySelectorAll('.reveal, .draw').forEach((el) => io.observe(el));
+
+      // theme switch: sections with data-theme decide the page colour
+      const base = document.body.dataset.baseTheme;
+      const zones = [...document.querySelectorAll('[data-theme]')];
+      const setTheme = () => {
+        const mid = window.innerHeight * 0.55;
+        let t = base;
+        zones.forEach((z) => { const r = z.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) t = z.dataset.theme; });
+        document.body.classList.toggle('theme-light', t === 'light');
+      };
+      if (window.__theme) window.removeEventListener('scroll', window.__theme);
+      window.__theme = setTheme; setTheme(); window.addEventListener('scroll', setTheme, { passive: true });
+    }
+    document.addEventListener('astro:page-load', init);
+
+    // designer's easter egg: G toggles the column grid
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'g' && !e.metaKey && !e.ctrlKey && !(e.target instanceof HTMLInputElement)) document.body.classList.toggle('show-grid');
+    });
+  </script>
+</body>
+</html>

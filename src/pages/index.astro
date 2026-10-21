@@ -1,0 +1,293 @@
+---
+import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
+import Symbols from '../components/Symbols.astro';
+import Media from '../components/Media.astro';
+import { cases, colabs, hrefOf } from '../data/projects.js';
+
+const all = [...cases, ...colabs];
+const areaLabel = { brand: 'Brand', product: 'Product', lab: 'Lab' };
+const principles = [
+  ['Find the idea', 'Every project starts with a question, not a style. I look for the one idea that explains the brand, the product or the problem — and let it lead.'],
+  ['Define the rules', 'An idea becomes useful when it turns into a system: type, color, components, tone. Rules others can follow without me in the room.'],
+  ['Know where they bend', 'Systems exist to be used, not admired. Knowing when to break a rule is part of the craft.'],
+];
+const capabilities = [
+  ['Identity', ['Brand concept & strategy', 'Logo systems', 'Typography & color', 'Art direction']],
+  ['Product', ['UX/UI design', 'Design systems', 'Data visualization', 'Prototyping']],
+  ['Interaction', ['Web design & build', 'Motion direction', 'AI-assisted prototyping']],
+];
+const experience = [
+  ['2023 — now', 'Andromeda', 'Independent practice'],
+  ['2025 — 26', 'Mimic', 'Brand designer (contract)'],
+  ['2024 — 25', '2REAL', 'Head of Creative'],
+  ['2022 — 23', 'IQVIA', 'Product Designer'],
+  ['2021 — 22', 'GM2', 'UX/UI Designer'],
+];
+---
+<Base section="01 / ORIGIN">
+  <!-- 01 HERO -->
+  <section class="hero wrap" aria-label="Introduction">
+    <div class="center">
+      <Symbols class="reveal" width={131} />
+      <div class="lockup">
+        <Wordmark class="big reveal" width={399} strokeWidth={0.4} />
+        <ul class="meta reveal" style="--d:200ms">
+          <li>"Design practice"</li>
+          <li>Rocío_Formentin</li>
+          <li class="light">Brand &amp; product design</li>
+          <li class="light">Open to work — remote</li>
+          <li class="light wide">©2026</li>
+        </ul>
+        <img class="dots reveal" style="--d:300ms" src="/brand/dots.svg" alt="" width="41" height="5" />
+        <a class="go reveal" style="--d:360ms" href="#work" aria-label="Explore selected work"><svg width="42" height="42" viewBox="0 0 44 44" fill="none"><path d="M0.708061 1H42.7067V43M42.7067 1L0.707085 42.9987" stroke="currentColor" stroke-width="2"/></svg></a>
+      </div>
+    </div>
+
+    <div class="grid bottom">
+      <div class="left">
+        <p class="lead reveal">Andromeda is the design practice of Rocío Formentin. It gathers years of work across branding, digital products and interactive experiences into one way of thinking: identities, interfaces and the systems that hold them together.</p>
+        <p class="fields mono reveal" style="--d:120ms"><span class="orbits" aria-hidden="true"><i></i><i></i></span>Identity / Product / Interaction</p>
+      </div>
+      <div class="right">
+        <p class="mono muted reveal">Practice / 2026</p>
+        <h1 class="prop reveal" style="--d:100ms">Imagination becomes identity, interface and experience.</h1>
+      </div>
+    </div>
+    <hr class="rule draw" />
+    <div class="byline mono">
+      <span class="muted">A design practice and portfolio by Rocío Formentin.</span>
+      <a class="ul strong" href="#work">Explore selected work ↘</a>
+    </div>
+  </section>
+
+  <!-- 02 INDEX -->
+  <section id="work" class="index" data-theme="light" aria-label="Selected work">
+    <div class="wrap">
+      <p class="mono muted">02 / Index</p>
+      <div class="index-head">
+        <h2 class="display">Work</h2>
+        <span class="display count">({all.length})</span>
+      </div>
+      <div class="filters mono-nav" role="group" aria-label="Filter work">
+        <button class="ul is-on" data-filter="all" aria-pressed="true">All</button>,
+        <button class="ul" data-filter="brand" aria-pressed="false">Brand</button>,
+        <button class="ul" data-filter="product" aria-pressed="false">Product</button>,
+        <button class="ul" data-filter="lab" aria-pressed="false">Lab</button>
+      </div>
+
+      <div class="table">
+        <div class="preview" aria-hidden="true">
+          {all.map((p) => (
+            <div class="pv" data-pv={p.slug}><Media item={p.cover} /></div>
+          ))}
+        </div>
+
+        {[['Use cases', cases], ['Co·labs', colabs]].map(([label, list], gi) => (
+          <div class="group">
+            <hr class="rule draw" />
+            <div class="grid rows">
+              <p class="glabel">{label} <span class="mono muted">({list.length})</span></p>
+              <ol class="list">
+                {list.map((p, i) => (
+                  <li class="row reveal" data-area={p.area} data-slug={p.slug} style={`--d:${i * 40}ms`}>
+                    <a href={hrefOf(p)}>
+                      <span class="yr mono muted">({p.years.replace(' · In progress', '')})</span>
+                      <span class="ttl" transition:name={`t-${p.slug}`}>{p.title}</span>
+                      <span class="ln">{p.line}</span>
+                      <span class="org mono muted">{areaLabel[p.area]} · {p.origin}</span>
+                      <span class="arr" aria-hidden="true">↗</span>
+                    </a>
+                    <div class="thumb"><Media item={p.cover} /></div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        ))}
+        <hr class="rule draw" />
+        <div class="grid rows nda">
+          <p class="glabel">Under NDA</p>
+          <p class="nda-txt">Brand evolution and game show worlds for an AI entertainment company. <a class="ul" href="mailto:rocio@andromedajourney.com?subject=Work%20under%20NDA">Available on request ↗</a></p>
+        </div>
+        <hr class="rule draw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PRACTICE -->
+  <section id="practice" class="practice" data-theme="light" aria-label="Practice">
+    <div class="wrap">
+      <p class="mono muted">03 / Practice</p>
+      <div class="grid intro">
+        <h2 class="display reveal">One practice, several branches.</h2>
+        <div class="txt reveal" style="--d:100ms">
+          <p class="lead">I started in graphic design and branched out: into brand identity, into product, into interactive work. Along the way I designed dashboards for complex healthcare platforms, built design systems with engineering teams, and created brand worlds for companies still finding their shape.</p>
+          <p class="lead">AI is part of my toolkit — to explore faster, prototype in code and connect design systems to what actually gets built. The judgment stays human.</p>
+        </div>
+      </div>
+
+      <ol class="principles">
+        {principles.map(([t, d], i) => (
+          <li class="grid reveal">
+            <hr class="rule draw" />
+            <span class="n mono muted">({String(i + 1).padStart(2, '0')})</span>
+            <h3>{t}</h3>
+            <p>{d}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="grid lists">
+        <div class="caps">
+          <p class="mono muted">Capabilities</p>
+          <div class="cap-cols">
+            {capabilities.map(([h, items]) => (
+              <div class="reveal"><p class="mono">{h}</p><ul>{items.map((x) => <li>{x}</li>)}</ul></div>
+            ))}
+          </div>
+        </div>
+        <div class="exp">
+          <p class="mono muted">Experience</p>
+          <ul>
+            {experience.map(([y, c, r]) => (
+              <li class="reveal"><span class="mono muted">{y}</span><span>{c}</span><span class="muted">{r}</span></li>
+            ))}
+          </ul>
+          <a class="mono-nav ul cv" href="/rocio-formentin-cv.pdf">Download CV ↓</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  function initIndex() {
+    const table = document.querySelector('.table');
+    if (!table) return;
+    const pvs = table.querySelectorAll('.pv');
+    table.querySelectorAll('.row').forEach((row) => {
+      row.addEventListener('mouseenter', () => {
+        pvs.forEach((p) => p.classList.toggle('on', p.dataset.pv === row.dataset.slug));
+        table.classList.add('hovering');
+      });
+    });
+    table.addEventListener('mouseleave', () => { table.classList.remove('hovering'); pvs.forEach((p) => p.classList.remove('on')); });
+
+    const btns = document.querySelectorAll('[data-filter]');
+    btns.forEach((b) => b.addEventListener('click', () => {
+      const f = b.dataset.filter;
+      btns.forEach((x) => { x.classList.toggle('is-on', x === b); x.setAttribute('aria-pressed', String(x === b)); });
+      table.querySelectorAll('.row').forEach((r) => { r.hidden = f !== 'all' && r.dataset.area !== f; });
+      history.replaceState(null, '', f === 'all' ? '/#work' : `/?area=${f}#work`);
+    }));
+    const pre = new URLSearchParams(location.search).get('area');
+    if (pre) document.querySelector(`[data-filter="${pre}"]`)?.click();
+  }
+  document.addEventListener('astro:page-load', initIndex);
+</script>
+
+<style>
+  /* HERO */
+  .hero { min-height: calc(100svh - 150px); display: flex; flex-direction: column; }
+  .center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0 64px; gap: 32px; }
+  .center :global(.symbols) { color: var(--paper); margin-left: 16%; }
+  .lockup { position: relative; display: grid; grid-template-columns: auto auto; align-items: start; }
+  .lockup :global(.big) { color: var(--bone); width: clamp(240px, 28vw, 399px); height: auto; margin-top: 28px; margin-right: -64px; opacity: .9; }
+  .meta { list-style: none; margin: 0; padding: 0; font-size: 20px; letter-spacing: .05em; text-transform: uppercase; color: var(--bone); line-height: 1.5; font-weight: 400; }
+  .meta .light { font-weight: 300; }
+  .meta .wide { letter-spacing: .26em; }
+  .dots { grid-column: 2; margin-top: 14px; }
+  .go { grid-column: 2; margin-top: 14px; color: var(--bone); width: 42px; transition: transform .5s var(--ease-out), color .3s; }
+  .go:hover { transform: translate(3px, 3px); color: var(--accent); }
+  .bottom { align-items: end; padding-bottom: 48px; }
+  .left { grid-column: 1 / span 4; }
+  .left .lead { margin: 0 0 40px; }
+  .right { grid-column: 9 / span 4; }
+  .right h1 { margin: 12px 0 0; color: var(--bone); }
+  .fields { display: flex; align-items: center; gap: 22px; color: var(--paper); margin: 0; }
+  .orbits { position: relative; width: 31px; height: 20px; }
+  .orbits i { position: absolute; top: 0; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--bone); opacity: .75; }
+  .orbits i:last-child { left: 10.4px; animation: orbit 6s var(--ease) infinite alternate; }
+  @keyframes orbit { from { left: 10.4px; } to { left: 4px; } }
+  .byline { display: flex; justify-content: space-between; padding: 26px 0 0; gap: 16px; }
+  .strong { color: var(--fg-strong); }
+
+  /* INDEX */
+  .index { padding: 160px 0 120px; }
+  .index-head { display: flex; justify-content: space-between; align-items: baseline; margin: 24px 0 8px; }
+  .index-head h2 { margin: 0; }
+  .count { color: var(--fg); }
+  .filters { margin: 0 0 56px; display: flex; gap: 6px; align-items: baseline; color: var(--muted); }
+  .filters button { all: unset; cursor: pointer; color: var(--muted); }
+  .filters button.is-on { color: var(--fg); background-size: 100% 1px; }
+  .table { position: relative; }
+  .preview { position: absolute; left: 0; top: 0; bottom: 0; width: calc((100% - 11 * var(--gutter)) / 12 * 4 + 3 * var(--gutter)); pointer-events: none; }
+  .pv { position: sticky; top: 30vh; height: 0; }
+  .pv :global(.media) { position: absolute; inset: 0 auto auto 0; width: 100%; opacity: 0; transform: translateY(12px) scale(.98); transition: opacity .45s var(--ease-out), transform .6s var(--ease-out); }
+  .pv.on :global(.media) { opacity: 1; transform: none; }
+  .rows { padding: 14px 0; }
+  .glabel { grid-column: 1 / span 4; margin: 0; font-size: 18px; }
+  .list { min-width: 0; grid-column: 5 / -1; list-style: none; margin: 0; padding: 0; }
+  .row a { display: grid; grid-template-columns: 96px minmax(0, 1.05fr) minmax(0, 1.5fr) 190px 16px; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); transition: color .3s, padding .5s var(--ease-out); }
+  .row:last-child a { border-bottom: 0; }
+  .ttl { font-size: clamp(22px, 2vw, 30px); font-weight: 400; letter-spacing: -.01em; }
+  .ln { color: var(--muted); }
+  .arr { opacity: 0; transform: translate(-6px, 6px); transition: opacity .3s, transform .5s var(--ease-out); color: var(--accent); }
+  .table.hovering .row a { color: var(--muted); }
+  .table.hovering .row a:hover { color: var(--fg); padding-left: 8px; }
+  .row a:hover .arr, .row a:focus-visible .arr { opacity: 1; transform: none; }
+  .thumb { display: none; }
+  .org { text-align: right; white-space: nowrap; }
+  .nda-txt { grid-column: 5 / -1; margin: 0; color: var(--muted); }
+  .nda-txt a { color: var(--fg); }
+
+  /* PRACTICE */
+  .practice { padding: 120px 0 160px; }
+  .intro { margin: 24px 0 96px; row-gap: 32px; }
+  .intro h2 { grid-column: 1 / span 6; margin: 0; }
+  .txt { grid-column: 8 / span 5; }
+  .txt .lead { margin: 0 0 20px; }
+  .principles { list-style: none; padding: 0; margin: 0 0 120px; }
+  .principles li { padding: 24px 0 32px; align-items: baseline; position: relative; }
+  .principles .rule { position: absolute; top: 0; left: 0; right: 0; }
+  .principles .n { grid-column: 1 / span 2; }
+  .principles h3 { grid-column: 3 / span 4; margin: 0; font-weight: 400; font-size: clamp(24px, 2.2vw, 32px); }
+  .principles p { grid-column: 8 / span 5; margin: 0; color: var(--muted); }
+  .lists { row-gap: 64px; }
+  .caps { grid-column: 1 / span 6; }
+  .cap-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-top: 24px; }
+  .cap-cols ul, .exp ul { list-style: none; padding: 0; margin: 12px 0 0; }
+  .cap-cols li { padding: 4px 0; }
+  .exp { grid-column: 8 / span 5; }
+  .exp ul { margin-top: 24px; }
+  .exp li { display: grid; grid-template-columns: 110px 1fr 1.4fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+  .cv { display: inline-block; margin-top: 32px; }
+
+  @media (max-width: 860px) {
+    .hero { min-height: auto; }
+    .center :global(.symbols) { margin-left: 0; }
+    .lockup { grid-template-columns: 1fr; justify-items: start; }
+    .lockup :global(.big) { margin-right: 0; width: 100%; }
+    .meta { font-size: 15px; margin-top: 12px; }
+    .dots, .go { grid-column: 1; }
+    .left, .right { grid-column: 1 / -1; }
+    .right { margin-top: 48px; }
+    .byline { flex-direction: column; }
+    .index { padding: 96px 0 72px; }
+    .preview { display: none; }
+    .glabel, .list, .nda-txt { grid-column: 1 / -1; }
+    .glabel { margin-bottom: 8px; }
+    .row a { grid-template-columns: 1fr auto; gap: 4px 12px; }
+    .row .yr { grid-row: 1; grid-column: 1; }
+    .row .ttl { grid-column: 1; }
+    .row .ln { grid-column: 1; font-size: 15px; }
+    .row .org, .row .arr { display: none; }
+    .thumb { display: block; margin: 0 0 18px; }
+    .intro h2, .txt, .caps, .exp { grid-column: 1 / -1; }
+    .principles .n { grid-column: 1 / span 2; }
+    .principles h3 { grid-column: 3 / -1; }
+    .principles p { grid-column: 3 / -1; margin-top: 10px; }
+    .cap-cols { grid-template-columns: 1fr; }
+  }
+</style>

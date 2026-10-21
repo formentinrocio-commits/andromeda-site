@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import Media from '../../components/Media.astro';
+import { cases, hrefOf, nextOf } from '../../data/projects.js';
+
+export function getStaticPaths() {
+  return cases.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const next = nextOf(p);
+const n = (i) => String(i).padStart(2, '0');
+---
+<Base title={`${p.title} — ${p.thesis} · Andromeda`} description={p.intro} theme="light" section={`Work / ${n(p.order)}`}>
+  <article class="case">
+    <header class="wrap grid head">
+      <div class="col-a">
+        <p class="mono muted">Project · <span transition:name={`t-${p.slug}`}>{p.title}</span></p>
+        <h1 class="h-thesis reveal">{p.thesis}</h1>
+      </div>
+      <div class="col-b">
+        <p class="mono muted">Description</p>
+        <p class="lead reveal" style="--d:80ms">{p.intro}</p>
+        <dl class="facts reveal" style="--d:160ms">
+          <div><dt class="mono muted">Year</dt><dd class="mono">{p.years}</dd></div>
+          <div><dt class="mono muted">Field</dt><dd class="mono">{p.field}</dd></div>
+          <div><dt class="mono muted">Role</dt><dd class="mono">{p.role}</dd></div>
+          <div><dt class="mono muted">Origin</dt><dd class="mono">{p.origin}</dd></div>
+        </dl>
+        <p class="scope mono muted reveal" style="--d:200ms">{p.scope}</p>
+      </div>
+    </header>
+
+    <div class="wrap grid cover-row">
+      <span class="num mono">(01)</span>
+      <div class="cover reveal"><Media item={p.cover} eager /></div>
+    </div>
+
+    {p.sections.map((s, i) => (
+      <section class="wrap grid sec">
+        <hr class="rule draw" />
+        <span class="num mono">({n(i + 2)})</span>
+        <div class="txt">
+          <h2 class="reveal">{s.title}</h2>
+          {s.tags && <p class="tags mono muted reveal">{s.tags.map((t, k) => <span>{n(k + 1)}. {t}</span>)}</p>}
+          {s.body.map((b) => <p class="reveal">{b}</p>)}
+          {s.quote && (
+            <blockquote class="reveal"><p class="mono">{s.quote.label}</p>{s.quote.lines.map((l) => <p>{l}</p>)}</blockquote>
+          )}
+          {s.link && <p class="reveal"><a class="ul mono-nav" href={s.link.href} target="_blank" rel="noopener">{s.link.label} ↗</a></p>}
+          {s.locked && <p class="reveal locked mono-nav"><span aria-hidden="true">⊘</span> {s.locked.label} — <a class="ul" href={s.locked.href}>request access ↗</a></p>}
+        </div>
+        <div class="gallery">
+          {s.media.map((m) => <div class={`g ${m.span === 'half' ? 'half' : 'full'} reveal`}><Media item={m} /></div>)}
+        </div>
+      </section>
+    ))}
+
+    {p.outcome && (
+      <section class="wrap grid sec outcome">
+        <hr class="rule draw" />
+        <span class="num mono">Outcome</span>
+        <p class="prop reveal">{p.outcome}</p>
+      </section>
+    )}
+
+    <nav class="wrap next" aria-label="Next project">
+      <hr class="rule draw" />
+      <a href={hrefOf(next)} class="nx">
+        <span class="mono muted">Next →</span>
+        <span class="display">{next.title}</span>
+        <span class="mono muted">{next.line}</span>
+      </a>
+      <a class="mono-nav ul back" href="/#work">Back to work</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .case { padding-top: 40px; }
+  .head { row-gap: 40px; padding-bottom: 96px; }
+  .col-a { grid-column: 1 / span 3; }
+  .col-a h1 { margin-top: 16px; }
+  .col-b { grid-column: 4 / span 8; }
+  .col-b .lead { margin: 16px 0 72px; max-width: 40ch; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); margin: 0 0 24px; }
+  .facts dt { margin-bottom: 10px; }
+  .facts dd { margin: 0; }
+  .scope { max-width: 70ch; margin: 0; }
+  .num { grid-column: 1 / span 3; font-size: clamp(28px, 3.2vw, 46px); font-weight: 300; color: var(--muted); letter-spacing: 0; text-align: center; align-self: start; text-transform: none; }
+  .cover-row { padding-bottom: 120px; }
+  .cover { grid-column: 4 / -1; }
+  .sec { position: relative; padding-block: 32px 120px; row-gap: 40px; }
+  .sec > .rule { position: absolute; top: 0; left: var(--margin); right: var(--margin); }
+  .txt { grid-column: 4 / span 6; }
+  .txt h2 { font-weight: 400; font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; margin: 0 0 24px; letter-spacing: -.01em; }
+  .txt p { margin: 0 0 16px; max-width: 60ch; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  blockquote { margin: 32px 0; padding: 24px 28px; border-left: 1px solid var(--accent); }
+  blockquote .mono { color: var(--accent); }
+  .locked { margin-top: 24px; }
+  .gallery { grid-column: 4 / -1; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--gutter); }
+  .g.full { grid-column: 1 / -1; }
+  .outcome .prop { grid-column: 4 / span 8; margin: 0; }
+  .outcome .num { font-size: 11px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .06em; text-align: left; padding-left: 0; }
+  .next { padding: 0 var(--margin) 140px; }
+  .nx { display: grid; gap: 8px; padding: 48px 0 32px; transition: color .3s; }
+  .nx:hover { color: var(--accent); }
+  .back { display: inline-block; }
+  @media (max-width: 860px) {
+    .col-a, .col-b, .txt, .gallery, .cover, .outcome .prop { grid-column: 1 / -1; }
+    .facts { grid-template-columns: 1fr 1fr; row-gap: 20px; }
+    .num { grid-column: 1 / -1; text-align: left; font-size: 24px; }
+    .gallery { grid-template-columns: minmax(0,1fr); }
+    .sec { padding-block-end: 72px; }
+    .cover-row { padding-bottom: 72px; }
+  }
+</style>

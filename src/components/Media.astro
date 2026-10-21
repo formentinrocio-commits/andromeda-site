@@ -1,0 +1,26 @@
+---
+const { item, eager = false, class: cls = '' } = Astro.props;
+---
+{item.kind === 'img' && (
+  <figure class={`media ${cls}`}>
+    <img src={item.src} alt={item.alt ?? ''} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    {item.caption && <figcaption class="mono muted">{item.caption}</figcaption>}
+  </figure>
+)}
+{item.kind === 'video' && (
+  <figure class={`media ${cls}`}>
+    <video autoplay muted loop playsinline preload="metadata" aria-label={item.alt}>
+      <source src={`${item.src}.webm`} type="video/webm" />
+      <source src={`${item.src}.mp4`} type="video/mp4" />
+    </video>
+  </figure>
+)}
+{item.kind === 'todo' && (
+  <figure class={`media todo mono ${cls}`}><span>[ {item.label} ]</span></figure>
+)}
+
+<style>
+  .media { margin: 0; overflow: hidden; }
+  .media img, .media video { width: 100%; height: auto; }
+  figcaption { margin-top: 10px; }
+</style>

@@ -1,0 +1,98 @@
+:root {
+  /* palette */
+  --ink: #131212;
+  --ink-2: #1b1a1a;
+  --bone: #dddada;
+  --paper: #fffaee;
+  --stone: #8f8c8a;
+  --cream: #f0eeeb;
+  --char: #0b0b0a;
+  --taupe: #7a7570;
+  --clay: #c2bdb8;
+  --sky: #aacef5;      /* accent on dark */
+  --sky-deep: #2f6fd8; /* accent on light */
+
+  /* active theme (dark by default) */
+  --bg: var(--ink);
+  --fg: var(--bone);
+  --fg-strong: var(--paper);
+  --muted: var(--stone);
+  --rule: rgba(221, 218, 218, .18);
+  --accent: var(--sky);
+
+  --gutter: 24px;
+  --margin: 64px;
+  --maxw: 1440px;
+  --sans: '42dot Sans', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+@media (max-width: 860px) { :root { --margin: 20px; --gutter: 16px; } }
+
+.theme-light {
+  --bg: var(--cream);
+  --fg: var(--char);
+  --fg-strong: var(--char);
+  --muted: var(--taupe);
+  --rule: rgba(11, 11, 10, .16);
+  --accent: var(--sky-deep);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--sans); font-weight: 300; font-size: 18px; line-height: 1.45;
+  transition: background-color .9s var(--ease), color .9s var(--ease);
+}
+html, body { overflow-x: clip; }
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent); color: var(--ink); }
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+
+/* —— type */
+.mono { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; line-height: 1.5; }
+.mono-nav { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+.muted { color: var(--muted); }
+.display { font-weight: 300; font-size: clamp(40px, 6.2vw, 96px); line-height: 1; letter-spacing: -.02em; }
+.h-thesis { font-weight: 500; font-size: clamp(28px, 2.45vw, 36px); line-height: .98; letter-spacing: -.01em; text-transform: uppercase; margin: 0; }
+.lead { font-size: clamp(20px, 1.7vw, 24px); line-height: 1.38; font-weight: 300; }
+.prop { font-size: clamp(30px, 2.8vw, 40px); line-height: 1.14; letter-spacing: -.01em; font-weight: 300; }
+
+/* —— layout */
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding-inline: var(--margin); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+.grid > * { min-width: 0; }
+.rule { height: 1px; background: var(--rule); border: 0; margin: 0; transform-origin: left; }
+
+/* —— visible column grid (texture) */
+.colgrid { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.colgrid .wrap { height: 100%; }
+.colgrid .grid { height: 100%; }
+.colgrid span { background: currentColor; opacity: .022; transform-origin: top; animation: col-in 1.6s var(--ease-out) both; }
+.colgrid span:nth-child(n) { animation-delay: calc(var(--i) * 60ms); }
+.theme-light .colgrid span { opacity: .014; }
+body.show-grid .colgrid span { opacity: .1; }
+@keyframes col-in { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+main, header.site, footer.site { position: relative; z-index: 1; }
+
+/* —— reveal */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); transition-delay: var(--d, 0ms); }
+.reveal.in { opacity: 1; transform: none; }
+.draw { transform: scaleX(0); transition: transform 1.2s var(--ease-out); transition-delay: var(--d, 0ms); }
+.draw.in { transform: scaleX(1); }
+
+/* —— link underline */
+.ul { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s var(--ease-out), color .3s; }
+.ul:hover, .ul:focus-visible { background-size: 100% 1px; color: var(--accent); }
+
+/* —— media placeholder */
+.media { min-width: 0; }
+.todo { width: 100%; background: color-mix(in srgb, var(--fg) 8%, transparent); display: flex; align-items: flex-end; padding: 16px; min-height: 220px; aspect-ratio: 16 / 9; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal, .draw { opacity: 1; transform: none; }
+}
